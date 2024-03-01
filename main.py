@@ -1,5 +1,6 @@
-#2024 CAT Investigation 1#
+# --- 2024 CAT Investigation 1 --- #
 
+#functions:
 conversions = {
     'year' : {
         'year': 1,
@@ -33,38 +34,54 @@ def compound_interest(P, R, cT, T):
     ci = P*((1+((R/100)/cT))**(cT*T))
     return round(ci, 2)
 
-print("MODULE 1: SIMPLE AND COMPOUND INTEREST COMPARISON")
-print("") 
 
-print("Simple Interest Account:")
-SP = float(input("Enter the principal amount in $: "))
-SR = float(input("Enter the interest rate (enter 7% as 7): "))
-SU = input('Enter the interest rate time unit (year, quarter, month, week, day: ')
-print("")
+#imformation for user + menu
+print("""WELCOME TO, UH, WHATEVER THIS IS!!!
+This program has five modules. Choose a module by typing its number:
+(1) Compare simple and compound interest savings acccounts
+(2) Calculate the time for a CI savings account to reach a target amount
+(3) Compare two Compound Interest savings accounts
+(4) Model a CI savings account with regular deposits
+(5) Model increases in compounding frequency""")
 
-print("Compound Interest Account:")
-CP = float(input("Enter the principal amount in $: "))
-CR = float(input("Enter the interest rate (enter 7% as 7): "))
-CU = input("Enter the interest rate time unit (year, quarter, month, week, day): ")
-CPU = input("Enter the compounding period(year, quarter, month, week, day, custom): ")
-if CPU == "custom":
-    cT = int(input("Enter the number of compounding periods per interest rate time unit: "))
-    CPU = cT
-else:
-    cT = conversions[CU][CPU]
-print("")
+menu = input("Enter 1 to 5, or 6 to quit: ") 
 
-PT = float(input("Enter the amount of time to project into the future: "))
-PU = input("Enter the projection time unit (year, quarter, month, week, day): ")
-print("")
+print("***")
 
-print(f"SI account: P = {SP}, r = {SR}% per {SU}")
-print(f"CI account: P = {CP}, r = {CR}% per {CU}, Compounding frequency: {CPU}")
-print(f"Projection timeframe: {PT} {PU}")
-print("")
+if menu == '1':
+    print("MODULE 1: SIMPLE AND COMPOUND INTEREST COMPARISON")
+    print("") 
 
-ST = PT * conversions[PU][SU]
-CT = PT * conversions[PU][CU]
+    print("Simple Interest Account:")
+    SP = float(input("Enter the principal amount in $: "))
+    SR = float(input("Enter the interest rate (enter 7% as 7): "))
+    SU = input('Enter the interest rate time unit (year, quarter, month, week, day: ')
+    print("")
 
-print(f"SI Account projected amount: ${SP + simple_interest(SP, SR, ST)}, Interest earned: ${simple_interest(SP, SR, PT)}")
-print(f"CI Account projected amount: ${CP + compound_interest(CP, CR, cT, CT)}, Interest earned: ${compound_interest(CP, CR, cT, PT)}")
+    print("Compound Interest Account:")
+    CP = float(input("Enter the principal amount in $: "))
+    CR = float(input("Enter the interest rate (enter 7% as 7): "))
+    CU = input("Enter the interest rate time unit (year, quarter, month, week, day): ")
+    CPU = input("Enter the compounding period(year, quarter, month, week, day, custom): ")
+    if CPU == "custom":
+        cT = int(input("Enter the number of compounding periods per interest rate time unit: "))
+        CPU = cT
+    else:
+        cT = conversions[CU][CPU]
+    print("")
+
+    PT = float(input("Enter the amount of time to project into the future: "))
+    PU = input("Enter the projection time unit (year, quarter, month, week, day): ")
+    print("")
+
+    print(f"SI account: P = {SP}, r = {SR}% per {SU}")
+    print(f"CI account: P = {CP}, r = {CR}% per {CU}, Compounding frequency: {CPU}")
+    print(f"Projection timeframe: {PT} {PU}")
+    print("")
+
+    ST = PT * conversions[PU][SU]
+    CT = PT * conversions[PU][CU]
+
+    print(f"SI Account projected amount: ${SP + simple_interest(SP, SR, ST)}, Interest earned: ${simple_interest(SP, SR, PT)}")
+    print(f"CI Account projected amount: ${CP + compound_interest(CP, CR, cT, CT)}, Interest earned: ${compound_interest(CP, CR, cT, PT)}")
+
