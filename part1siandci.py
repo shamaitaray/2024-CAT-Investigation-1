@@ -9,3 +9,7 @@ def time_target(P, r, n, A):
     return a, b, nt, time
 
 print(time_target(1000, 5, 4, 1500))
+
+r = 'Compare two Compound Interest savings accounts'
+
+print(r.upper())
