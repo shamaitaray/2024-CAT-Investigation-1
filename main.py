@@ -4,8 +4,7 @@
 #also to do rounding up because the round function doesn't do that, apparently
 import math
 
-
-conversions = {
+conversions = {   #this is for conversions of time periods
 
     'year' : {
         'year': 1,
@@ -32,7 +31,6 @@ conversions = {
 }
 
 #functions:
-#this is for conversions of time periods
 def simple_interest(P, R, T):
     si = P*(R/100)*T
     return round(si, 2)
@@ -178,12 +176,15 @@ while True:  #use of while loop means the program can be used again and again wi
         PU2 = input("Enter the projection time unit (year, quarter, month, week, day): ")
         print("")
 
+        # summary for accounts
         print(f"CI Account 1: P = {P1}, r = {r1}% per {CU1}, Compounding Frequency: {CPU1}, Projection timeframe: {PT1} {PU1}")
         print(f"CI Account 2: P = {P2}, r = {r2}% per {CU2}, Compounding Frequency: {CPU2}, Projection timeframe: {PT2} {PU2}")
 
+        # time period conversions
         T1 = PT1 * conversions[PU1][CU1]
         T2 = PT2 * conversions[PU2][CU2]
         
+        #output
         print(f"CI Account 1 projected amount: ${P1 + compound_interest(P1, r1, n1, T1)}, Interest earned: ${compound_interest(P1, r1, n1, T1)}")
         print(f"CI Account 2 projected amount: ${P2 + compound_interest(P2, r2, n2, T2)}, Interest earned: ${compound_interest(P2, r2, n2, T2)}")
         
