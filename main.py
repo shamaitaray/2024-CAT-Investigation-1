@@ -35,10 +35,12 @@ def simple_interest(P, R, T):
     si = P*(R/100)*T
     return round(si, 2)
 #this calcuates simple interest
+
 def compound_interest(P, r, n, t):
     ci = P*((1+((r/100)/n))**(n*t))
     return round(ci, 2)
 #this calculates compound interest
+
 def time_target(P, r, n, A):
     r = r/100
     a = math.log(A/P)
@@ -47,6 +49,30 @@ def time_target(P, r, n, A):
     time = nt/n
     return math.ceil(time)
 #this calculates the time needed to reach the target
+
+def regular_deposits(P, r, n, t, D,):
+    opening = []
+    interest = []
+    deposit = []
+    closing = []
+
+    total = round(P, 2)
+
+    for i in range(t + 1):
+        opening.append(round(total, 2))
+        total *= round((1 + ((r/100) / n))**n, 2)
+        i = round(total - opening[-1], 2)
+        interest.append(i)
+        total += round(D, 2)
+        deposit.append(D)
+        closing.append(round(total, 2))
+
+    zipped = zip(opening, interest, deposit, closing)
+
+    print('column headings: opening, interest, deposit, closing')
+    for row in list(zipped):
+        print(row)
+# this calculate the regular deposits
 
 #information for user + menu
 print("""***
@@ -188,3 +214,33 @@ while True:  #use of while loop means the program can be used again and again wi
         print(f"CI Account 1 projected amount: ${P1 + compound_interest(P1, r1, n1, T1)}, Interest earned: ${compound_interest(P1, r1, n1, T1)}")
         print(f"CI Account 2 projected amount: ${P2 + compound_interest(P2, r2, n2, T2)}, Interest earned: ${compound_interest(P2, r2, n2, T2)}")
         
+    elif menu == '4':
+        print("MODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS")
+        print("")
+
+        # input for account
+        P = float(input("Enter the principal amount in $: "))
+        r = float(input("Enter the interest rate (enter 7% as 7): "))
+        CU = input("Enter the interest rate time unit (year, quarter, month, week, day): ")
+        CPU = input("Enter the compounding period(year, quarter, month, week, day, custom): ")
+        if CPU == "custom":
+            n = float(input("Enter the number of compounding periods per interest rate time unit: "))
+            CPU = n
+        else:
+            n = conversions[CU][CPU] # converts from compounding period to a number
+        
+        # input for deposits
+        d = float(input("Enter the regular deposit amount per compounding period: "))
+        da = float(input("Enter the dollar amount to project to (if you enter 0, you will be asked for the amount of time to project for): "))
+        if da == 0:
+            t = int(input("In that case, enter the amount of time to project for: "))
+            tu = input("Enter the projection time unit (year, quarter, month, week, day): ")
+
+        # converting periods
+        T = t * n
+        
+        # printing output
+        print(regular_deposits(P, r, n , T, d,))
+        print("")
+
+

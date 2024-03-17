@@ -1,15 +1,26 @@
-import numpy
+def regular_deposits(P, r, n, t, D,):
+    opening = []
+    interest = []
+    deposit = []
+    closing = []
 
-def time_target(P, r, n, A):
-    r = r/100
-    a = numpy.log(A/P)
-    b = numpy.log(1 + (r/n))
-    nt = a/b
-    time = nt/n
-    return a, b, nt, time
+    total = round(P, 2)
 
-print(time_target(1000, 5, 4, 1500))
+    for i in range(t + 1):
+        opening.append(round(total, 2))
+        total *= round((1 + ((r/100) / n))**n, 2)
+        i = round(total - opening[-1], 2)
+        interest.append(i)
+        total += round(D, 2)
+        deposit.append(D)
+        closing.append(round(total, 2))
 
-r = 'Compare two Compound Interest savings accounts'
+    zipped = zip(opening, interest, deposit, closing)
 
-print(r.upper())
+    print('column headings: opening, interest, deposit, closing')
+    for row in list(zipped):
+        print(row)
+
+
+print(regular_deposits(1000, 5, 12, 60, 250))
+
