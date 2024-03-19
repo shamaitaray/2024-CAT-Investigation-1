@@ -50,11 +50,26 @@ def time_target(P, r, n, A):
     return math.ceil(time)
 #this calculates the time needed to reach the target
 
-def regular_deposits(P, r, n, t, D,):
+def compare_ci(P1, P2, r1, r2, n1, n2, t1, t2):
+    account_1 = []
+    account_2 = []
+    
+    for i in range(t1+1):
+        account_1.append(compound_interest(P1, r1, n1, i))
+    
+    for i in range(t2+1):
+        account_2.append(compound_interest(P2, r2, n2, i))
+
+    return account_1, account_2
+
+def regular_deposits(P, r, n, t, A, D,):
     opening = []
     interest = []
     deposit = []
     closing = []
+
+    if t == 0:
+        t = time_target(P, r, n, A)
 
     total = round(P, 2)
 
@@ -64,7 +79,7 @@ def regular_deposits(P, r, n, t, D,):
         i = round(total - opening[-1], 2)
         interest.append(i)
         total += round(D, 2)
-        deposit.append(D)
+        deposit.append(P)
         closing.append(round(total, 2))
 
     zipped = zip(opening, interest, deposit, closing)
@@ -151,7 +166,6 @@ while True:  #use of while loop means the program can be used again and again wi
             CPU = n
         else:
             n = conversions[CU][CPU] # this converts the compounding period into a number
-        print("")
 
         # target amount info
         A = float(input("Enter target amount: "))
@@ -160,10 +174,17 @@ while True:  #use of while loop means the program can be used again and again wi
         # summary
         print(f"CI account: P = {P}, r = {r}% per {CU}, Compounding frequency: {CPU}")
         print(f"Target amount: ${A}")
-        print("hi")
+        print("")
+        t = time_target(P, r, n, A)
 
+        # outputs forward projection
+        projections = []
+        for i in range(t + 1):
+            projections.append(compound_interest(P, r, n, i))
+        
         # use of f strings and functions for output
-        print(f"Time taken: {time_target(P, r, n, A)} {CPU}")
+        print(f"Forward projection: {projections}")
+        print(f"Time taken: {t} {CPU}")
         print("")
 
     elif menu == '3':
@@ -182,7 +203,7 @@ while True:  #use of while loop means the program can be used again and again wi
             n1 = conversions[CU1][CPU1] # converts from compounding period to a number
 
         # input for projection time
-        PT1 = float(input("Enter the amount of time to project into the future: "))
+        PT1 = int(input("Enter the amount of time to project into the future: "))
         PU1 = input("Enter the projection time unit (year, quarter, month, week, day): ")
         print("")
 
@@ -198,21 +219,18 @@ while True:  #use of while loop means the program can be used again and again wi
             n2 = conversions[CU2][CPU2] # converts from compounding period to a number
 
         # input for projection     
-        PT2 = float(input("Enter the amount of time to project into the future: "))
+        PT2 = int(input("Enter the amount of time to project into the future: "))
         PU2 = input("Enter the projection time unit (year, quarter, month, week, day): ")
         print("")
-
-        # summary for accounts
-        print(f"CI Account 1: P = {P1}, r = {r1}% per {CU1}, Compounding Frequency: {CPU1}, Projection timeframe: {PT1} {PU1}")
-        print(f"CI Account 2: P = {P2}, r = {r2}% per {CU2}, Compounding Frequency: {CPU2}, Projection timeframe: {PT2} {PU2}")
 
         # time period conversions
         T1 = PT1 * conversions[PU1][CU1]
         T2 = PT2 * conversions[PU2][CU2]
         
         #output
-        print(f"CI Account 1 projected amount: ${P1 + compound_interest(P1, r1, n1, T1)}, Interest earned: ${compound_interest(P1, r1, n1, T1)}")
-        print(f"CI Account 2 projected amount: ${P2 + compound_interest(P2, r2, n2, T2)}, Interest earned: ${compound_interest(P2, r2, n2, T2)}")
+        a, b = compare_ci(P1, P2, r1, r2, n1, n2, T1, T2)
+        print(f"CI Account 1 forward projection: {a}")
+        print(f"CI Account 2 forward projection: {b}")
         
     elif menu == '4':
         print("MODULE 4: MODEL A CI SAVINGS ACCOUNT WITH REGULAR DEPOSITS")
@@ -235,12 +253,12 @@ while True:  #use of while loop means the program can be used again and again wi
         if da == 0:
             t = int(input("In that case, enter the amount of time to project for: "))
             tu = input("Enter the projection time unit (year, quarter, month, week, day): ")
-
-        # converting periods
-        T = t * n
+            t = t * n
+        else:
+            t = 0
         
         # printing output
-        print(regular_deposits(P, r, n , T, d,))
+        print(regular_deposits(P, r, n , t, da, d))
         print("")
 
 
