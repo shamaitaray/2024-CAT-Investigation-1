@@ -265,20 +265,29 @@ while True:  #use of while loop means the program can be used again and again wi
         print('MODULE 5: STIMULATE INCREASES IN COMPOUNDING FREQUENCY')
         print("")
 
+        # outputs the projections for the different compounding frequencies
         print("QUARTERLY COMPOUNDING")
         print(regular_deposits(1000, 100, 4, 4, 0, compound_interest(1000, 100, 4, 4)))
-        
+        print("")
+
         print("MONTHLY COMPOUNDING")
         print(regular_deposits(1000, 100, 12, 12, 0, compound_interest(1000, 100, 12, 12)))
+        print("")
 
         print("WEEKLY COMPOUNDING")
         print(regular_deposits(1000, 100, 52, 52, 0, compound_interest(1000, 100, 52, 52)))
+        print("")
 
         print("DAILY COMPOUNDING")
         print(regular_deposits(1000, 100, 365, 365, 0, compound_interest(1000, 100, 365, 365)))
+        print("")
 
         print("HOURLY COMPOUNDING")
-        print("Error: the result is to large to output")
+        print("The result is to large to output.")
+        print("")
 
         print("TEN MINUTE COMPOUNDING")
-        print("Error: the result is too large to output")
+        print("The result is too large to output.")
+        print("")
+
+        print("")
