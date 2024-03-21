@@ -261,4 +261,24 @@ while True:  #use of while loop means the program can be used again and again wi
         print(regular_deposits(P, r, n , t, da, d))
         print("")
 
+    elif menu == "5":
+        print('MODULE 5: STIMULATE INCREASES IN COMPOUNDING FREQUENCY')
+        print("")
 
+        print("QUARTERLY COMPOUNDING")
+        print(regular_deposits(1000, 100, 4, 4, 0, compound_interest(1000, 100, 4, 4)))
+        
+        print("MONTHLY COMPOUNDING")
+        print(regular_deposits(1000, 100, 12, 12, 0, compound_interest(1000, 100, 12, 12)))
+
+        print("WEEKLY COMPOUNDING")
+        print(regular_deposits(1000, 100, 52, 52, 0, compound_interest(1000, 100, 52, 52)))
+
+        print("DAILY COMPOUNDING")
+        print(regular_deposits(1000, 100, 365, 365, 0, compound_interest(1000, 100, 365, 365)))
+
+        print("HOURLY COMPOUNDING")
+        print("Error: the result is to large to output")
+
+        print("TEN MINUTE COMPOUNDING")
+        print("Error: the result is too large to output")
